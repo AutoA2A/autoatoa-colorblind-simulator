@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>色盲知识帮助</title>
+    <style>
+        /* ===== 全局重置 & 基础 ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            color: #333;
+            background-color: #fafafa;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== 容器 ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* ===== 顶部导航 ===== */
+        .site-header {
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 60px;
+            gap: 12px;
+        }
+
+        .site-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #4a90e2;
+            text-decoration: none;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+            flex-shrink: 0;
+        }
+
+        .site-logo:hover {
+            color: #357ab8;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 8px 0;
+            flex: 1 1 auto;
+            justify-content: flex-end;
+        }
+
+        .main-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 6px;
+            white-space: nowrap;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .main-nav a:hover {
+            background-color: rgba(74, 144, 226, 0.08);
+            color: #4a90e2;
+        }
+
+        .main-nav a.active {
+            background-color: #4a90e2;
+            color: #fff;
+        }
+
+        /* ===== 主体占位区 ===== */
+        .main-content {
+            flex: 1 0 auto;
+            padding: 32px 0;
+            width: 100%;
+        }
+
+        /* ===== 响应式：<600px 堆叠垂直 ===== */
+        @media (max-width: 599px) {
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 8px 0 4px;
+                gap: 4px;
+            }
+
+            .site-logo {
+                text-align: center;
+                font-size: 1.1rem;
+                padding: 4px 0;
+            }
+
+            .main-nav {
+                justify-content: center;
+                gap: 4px;
+                padding: 4px 0 8px;
+                flex-wrap: wrap;
+                overflow-x: visible;
+            }
+
+            .main-nav a {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+                flex-shrink: 1;
+            }
+
+            .container {
+                padding: 0 14px;
+            }
+
+            .main-content {
+                padding: 20px 0;
+            }
+        }
+
+        /* 细微调整：中等屏幕 */
+        @media (min-width: 600px) and (max-width: 899px) {
+            .main-nav a {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+        }
+
+        /* ===== 工具类（保留供开发使用，不污染占位区） ===== */
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            padding: 10px 24px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            border: 1px solid transparent;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: #4a90e2;
+            color: #fff;
+            border-color: #4a90e2;
+        }
+
+        .btn-primary:hover {
+            background-color: #357ab8;
+            border-color: #357ab8;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #4a90e2;
+            border-color: #4a90e2;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(74, 144, 226, 0.06);
+        }
+
+        /* ===== 占位区标记（不可见，仅供识别） ===== */
+        .slot-placeholder {
+            display: none;
+        }
+    </style>
+<meta name="description" content="解释色盲的生理原理、常见类型、算法原理（Brettel‑Vienot‑Mollon 转换矩阵），使用技巧及常见误区，帮助用户更好理解模拟效果。"><meta name="keywords" content="色盲,视觉模拟,图像处理,红绿色盲,蓝黄色盲,辅助设计"><meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:type" content="website"><meta property="og:title" content="色盲知识帮助"><meta property="og:description" content="解释色盲的生理原理、常见类型、算法原理（Brettel‑Vienot‑Mollon 转换矩阵），使用技巧及常见误区，帮助用户更好理解模拟效果。"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="色盲知识帮助"><meta name="twitter:description" content="解释色盲的生理原理、常见类型、算法原理（Brettel‑Vienot‑Mollon 转换矩阵），使用技巧及常见误区，帮助用户更好理解模拟效果。"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"色盲知识帮助","description":"解释色盲的生理原理、常见类型、算法原理（Brettel‑Vienot‑Mollon 转换矩阵），使用技巧及常见误区，帮助用户更好理解模拟效果。","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"}}</script><style data-a2a="basecss">*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img,canvas,svg,video,table{max-width:100%;height:auto}pre,code{white-space:pre-wrap;word-break:break-word}[data-a2a="header"]{width:100%}@media(max-width:640px){body{font-size:15px}}</style></head>
+<body>
+
+    <!-- ===== 顶部导航（写死，全站一致） ===== -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="site-logo">🌈 色盲模拟器</a>
+            <nav class="main-nav">
+                <a href="index.html">首页</a>
+                <a href="upload.html">上传图片</a>
+                <a href="result.html">模拟结果</a>
+                <a href="help.html">色盲知识</a>
+                <a href="feedback.html">反馈建议</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== 主体内容区（仅有占位标记） ===== -->
+    <main class="main-content">
+        <div class="container">
+            
+<main class="main-content">
+    <section class="card">
+        <div class="container">
+            <h1 style="margin-bottom:0.8rem;">色盲知识帮助</h1>
+            <nav style="margin-bottom:1.5rem;">
+                <a href="index.html" class="btn btn-secondary">首页</a>
+                <a href="upload.html" class="btn btn-secondary">上传图片</a>
+                <a href="result.html" class="btn btn-secondary">模拟结果</a>
+                <a href="feedback.html" class="btn btn-secondary">反馈建议</a>
+            </nav>
+
+            <article id="section-physiology" class="section">
+                <h2 style="cursor:pointer;margin-top:1rem;" data-target="content-physiology">🔬 生理原理</h2>
+                <div id="content-physiology" style="display:none;padding-left:1rem;">
+                    <p>人眼视网膜上有三类视锥细胞（L、M、S），分别对长波（红）、中波（绿）和短波（蓝）光敏感。色盲是由于一种或多种视锥细胞功能缺失或光谱响应异常导致的。</p>
+                    <ul>
+                        <li><strong>全色盲（Monochromacy）</strong>：仅保留一种视锥，几乎只能感知亮度。</li>
+                        <li><strong>红‑绿色盲</strong>：L 或 M 视锥缺失或功能受限，分为原色盲（Protanopia）和绿盲（Deuteranopia）。</li>
+                        <li><strong>蓝‑黄色盲（Tritanopia）</strong>：S 视锥缺失，较为罕见。</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article id="section-types" class="section">
+                <h2 style="cursor:pointer;margin-top:1rem;" data-target="content-types">🎨 常见类型一览</h2>
+                <div id="content-types" style="display:none;padding-left:1rem;">
+                    <table class="table container" style="margin-top:0.5rem;">
+                        <thead>
+                            <tr><th>类型</th><th>缺失视锥</th><th>感知特征</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>全色盲</td><td>全部视锥</td><td>仅黑白</td></tr>
+                            <tr><td>原色盲（Protanopia）</td><td>L</td><td>红色弱，难以区分红/绿</td></tr>
+                            <tr><td>绿盲（Deuteranopia）</td><td>M</td><td>绿光弱，红/绿混淆</td></tr>
+                            <tr><td>蓝‑黄色盲（Tritanopia）</td><td>S</td><td>蓝/黄混淆，常误判蓝色为绿色</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+
+            <article id="section-algorithm" class="section">
+                <h2 style="cursor:pointer;margin-top:1rem;" data-target="content-algorithm">🧮 模拟算法原理</h2>
+                <div id="content-algorithm" style="display:none;padding-left:1rem;">
+                    <p>本模拟基于 <strong>Brettel‑Vienot‑Mollon (BVM) 转换矩阵</strong>，通过在 XYZ 颜色空间投影到色盲视锥子空间，再映射回 RGB，实现近似人类色盲视觉。</p>
+                    <pre style="background:#f0f0f0;padding:0.8rem;overflow:auto;">
+// 简化版 BVM 矩阵（以原色盲为例）
+const BVM = {
+    protanopia: [
+        [0.0, 1.05118294, -0.05116099],
+        [0.0, 1.0, 0.0],
+        [0.0, 0.0, 1.0]
+    ],
+    deuteranopia: [
+        [1.0, 0.0, 0.0],
+        [0.9513092, 0.0, 0.04866992],
+        [0.0, 0.0, 1.0]
+    ],
+    tritanopia: [
+        [1.0, 0.0, 0.0],
+        [0.0, 1.0, 0.0],
+        [-0.86744736, 1.86727089, 0.0]
+    ]
+};
+
+function simulatePixel(r,g,b,mode){
+    const m = BVM[mode];
+    const R = m[0][0]*r + m[0][1]*g + m[0][2]*b;
+    const G = m[1][0]*r + m[1][1]*g + m[1][2]*b;
+    const B = m[2][0]*r + m[2][1]*g + m[2][2]*b;
+    return [R,G,B];
+}
+                    </pre>
+                    <p>实际实现时我们先把图像数据取出（Canvas getImageData），对每个像素执行矩阵乘法，再写回 Canvas，保证实时、离线运行。</p>
+                </div>
+            </article>
+
+            <article id="section-tips" class="section">
+                <h2 style="cursor:pointer;margin-top:1rem;" data-target="content-tips">💡 使用技巧</h2>
+                <div id="content-tips" style="display:none;padding-left:1rem;">
+                    <ul>
+                        <li>对比原图与模拟图时，放大关键颜色区域，便于发现细微差别。</li>
+                        <li>在设计 UI 时，尽量避免仅靠红/绿或蓝/黄区分信息，加入形状或文字标签。</li>
+                        <li>使用「全色盲」模式检查整体对比度，确保信息在无色彩情况下仍可辨认。</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article id="section-misconceptions" class="section">
+                <h2 style="cursor:pointer;margin-top:1rem;" data-target="content-misconceptions">❌ 常见误区</h2>
+                <div id="content-misconceptions" style="display:none;padding-left:1rem;">
+                    <ul>
+                        <li>“色盲只能看见黑白”——仅全色盲如此，红‑绿或蓝‑黄色盲仍能感知颜色，只是某些波段弱化。</li>
+                        <li>“所有红‑绿色盲表现相同”——原色盲和绿盲在色彩偏移方向上略有差异。</li>
+                        <li>“模拟即真实体验”——算法只能近似感知，真实视觉还受光照、对比度等因素影响。</li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+<script>
+document.querySelectorAll('h2[data-target]').forEach(function(header){
+    header.addEventListener('click', function(){
+        const targetId = header.getAttribute('data-target');
+        const content = document.getElementById(targetId);
+        const isVisible = content.style.display === 'block';
+        content.style.display = isVisible ? 'none' : 'block';
+    });
+});
+</script>
+
+        </div>
+    </main>
+
+    <!-- 无页脚/版权（由系统统一注入） -->
+<footer data-a2a="footer" style="margin-top:48px;padding:28px 16px;border-top:1px solid rgba(127,127,127,.16);text-align:center;font-family:system-ui,-apple-system,'PingFang SC',sans-serif;line-height:1.9;color:#8a8f99;background:transparent"><a href="https://www.autoa2a.org" target="_blank" rel="noopener" style="display:inline-block;margin-bottom:10px"><img src="https://agent.oagi.com.cn/uploads/202606/29ea3ed5413830b3.png" alt="AutoA2A" style="height:36px;vertical-align:middle;border:0"></a><div style="font-size:13.5px;color:#6b7280;max-width:760px;margin:0 auto 6px">✅️ <b>AutoA2A</b> · 智能体互连 Agent to Agent 平台——让智能体无缝发现、协商、协作与安全交换数据，开启 AI 即服务新时代。</div><div style="font-size:13px">本网站由 <a href="https://www.autoa2a.org" target="_blank" rel="noopener" style="color:#f2603c;text-decoration:none;font-weight:600">www.autoa2a.org</a> 多个 AI 协作生成</div><div style="font-size:12px;color:#aab;margin-top:6px">Copyright © 2025 - 2026 AutoA2A. All Rights Reserved. A2A版权所有</div></footer></body>
+</html>
