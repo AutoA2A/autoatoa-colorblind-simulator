@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>反馈与建议</title>
+    <style>
+        /* ===== 全局重置 & 基础 ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            color: #333;
+            background-color: #fafafa;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== 容器 ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* ===== 顶部导航 ===== */
+        .site-header {
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 60px;
+            gap: 12px;
+        }
+
+        .site-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #4a90e2;
+            text-decoration: none;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+            flex-shrink: 0;
+        }
+
+        .site-logo:hover {
+            color: #357ab8;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 8px 0;
+            flex: 1 1 auto;
+            justify-content: flex-end;
+        }
+
+        .main-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 6px;
+            white-space: nowrap;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .main-nav a:hover {
+            background-color: rgba(74, 144, 226, 0.08);
+            color: #4a90e2;
+        }
+
+        .main-nav a.active {
+            background-color: #4a90e2;
+            color: #fff;
+        }
+
+        /* ===== 主体占位区 ===== */
+        .main-content {
+            flex: 1 0 auto;
+            padding: 32px 0;
+            width: 100%;
+        }
+
+        /* ===== 响应式：<600px 堆叠垂直 ===== */
+        @media (max-width: 599px) {
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 8px 0 4px;
+                gap: 4px;
+            }
+
+            .site-logo {
+                text-align: center;
+                font-size: 1.1rem;
+                padding: 4px 0;
+            }
+
+            .main-nav {
+                justify-content: center;
+                gap: 4px;
+                padding: 4px 0 8px;
+                flex-wrap: wrap;
+                overflow-x: visible;
+            }
+
+            .main-nav a {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+                flex-shrink: 1;
+            }
+
+            .container {
+                padding: 0 14px;
+            }
+
+            .main-content {
+                padding: 20px 0;
+            }
+        }
+
+        /* 细微调整：中等屏幕 */
+        @media (min-width: 600px) and (max-width: 899px) {
+            .main-nav a {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+        }
+
+        /* ===== 工具类（保留供开发使用，不污染占位区） ===== */
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            padding: 10px 24px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            border: 1px solid transparent;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: #4a90e2;
+            color: #fff;
+            border-color: #4a90e2;
+        }
+
+        .btn-primary:hover {
+            background-color: #357ab8;
+            border-color: #357ab8;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #4a90e2;
+            border-color: #4a90e2;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(74, 144, 226, 0.06);
+        }
+
+        /* ===== 占位区标记（不可见，仅供识别） ===== */
+        .slot-placeholder {
+            display: none;
+        }
+    </style>
+<meta name="description" content="收集用户对模拟效果的主观评价和改进建议，提交后显示感谢信息，并提供返回首页或帮助页的链接。"><meta name="keywords" content="色盲,视觉模拟,图像处理,红绿色盲,蓝黄色盲,辅助设计"><meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:type" content="website"><meta property="og:title" content="反馈与建议"><meta property="og:description" content="收集用户对模拟效果的主观评价和改进建议，提交后显示感谢信息，并提供返回首页或帮助页的链接。"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="反馈与建议"><meta name="twitter:description" content="收集用户对模拟效果的主观评价和改进建议，提交后显示感谢信息，并提供返回首页或帮助页的链接。"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"反馈与建议","description":"收集用户对模拟效果的主观评价和改进建议，提交后显示感谢信息，并提供返回首页或帮助页的链接。","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"}}</script><style data-a2a="basecss">*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img,canvas,svg,video,table{max-width:100%;height:auto}pre,code{white-space:pre-wrap;word-break:break-word}[data-a2a="header"]{width:100%}@media(max-width:640px){body{font-size:15px}}</style></head>
+<body>
+
+    <!-- ===== 顶部导航（写死，全站一致） ===== -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="site-logo">🌈 色盲模拟器</a>
+            <nav class="main-nav">
+                <a href="index.html">首页</a>
+                <a href="upload.html">上传图片</a>
+                <a href="result.html">模拟结果</a>
+                <a href="help.html">色盲知识</a>
+                <a href="feedback.html">反馈建议</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== 主体内容区（仅有占位标记） ===== -->
+    <main class="main-content">
+        <div class="container">
+            
+<section class="main-content">
+    <div class="container">
+        <div class="card">
+            <h2>反馈与建议</h2>
+            <form id="feedbackForm">
+                <label for="satisfaction">您对模拟效果的满意度：</label>
+                <select id="satisfaction" name="satisfaction">
+                    <option value="">请选择</option>
+                    <option value="very_satisfied">非常满意</option>
+                    <option value="satisfied">满意</option>
+                    <option value="neutral">一般</option>
+                    <option value="dissatisfied">不满意</option>
+                    <option value="very_dissatisfied">非常不满意</option>
+                </select>
+
+                <label for="suggestions">您的建议或意见：</label>
+                <textarea id="suggestions" name="suggestions" rows="4"></textarea>
+
+                <label for="contact">联系方式（可选）：</label>
+                <input type="text" id="contact" name="contact" placeholder="邮箱或手机号">
+
+                <button type="submit" class="btn btn-primary">提交反馈</button>
+            </form>
+            <div id="feedbackSuccess" style="display: none;">
+                <p>感谢您的反馈！</p>
+                <p>
+                    <a href="index.html" class="btn btn-secondary">返回首页</a>
+                    <a href="help.html" class="btn btn-secondary">查看帮助</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // 这里可以添加实际的表单提交逻辑（例如 AJAX 请求）
+        // 提交成功后显示感谢信息
+        document.getElementById('feedbackForm').style.display = 'none';
+        document.getElementById('feedbackSuccess').style.display = 'block';
+    });
+</script>
+
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    label {
+        font-weight: 500;
+        margin-bottom: 4px;
+    }
+
+    input, select, textarea {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 0.9375rem;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    .btn {
+        margin-top: 8px;
+    }
+
+    #feedbackSuccess {
+        text-align: center;
+        padding: 24px 0;
+    }
+
+    #feedbackSuccess p {
+        margin-bottom: 16px;
+    }
+
+    #feedbackSuccess .btn {
+        margin: 0 8px;
+    }
+</style>
+
+        </div>
+    </main>
+
+    <!-- 无页脚/版权（由系统统一注入） -->
+<footer data-a2a="footer" style="margin-top:48px;padding:28px 16px;border-top:1px solid rgba(127,127,127,.16);text-align:center;font-family:system-ui,-apple-system,'PingFang SC',sans-serif;line-height:1.9;color:#8a8f99;background:transparent"><a href="https://www.autoa2a.org" target="_blank" rel="noopener" style="display:inline-block;margin-bottom:10px"><img src="https://agent.oagi.com.cn/uploads/202606/29ea3ed5413830b3.png" alt="AutoA2A" style="height:36px;vertical-align:middle;border:0"></a><div style="font-size:13.5px;color:#6b7280;max-width:760px;margin:0 auto 6px">✅️ <b>AutoA2A</b> · 智能体互连 Agent to Agent 平台——让智能体无缝发现、协商、协作与安全交换数据，开启 AI 即服务新时代。</div><div style="font-size:13px">本网站由 <a href="https://www.autoa2a.org" target="_blank" rel="noopener" style="color:#f2603c;text-decoration:none;font-weight:600">www.autoa2a.org</a> 多个 AI 协作生成</div><div style="font-size:12px;color:#aab;margin-top:6px">Copyright © 2025 - 2026 AutoA2A. All Rights Reserved. A2A版权所有</div></footer></body>
+</html>
